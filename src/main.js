@@ -5,6 +5,11 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+import Vuesax from 'vuesax'
+
+import 'vuesax/dist/vuesax.css' //Vuesax styles
+Vue.use(Vuesax)
+
 new Vue({
   router,
   store,
