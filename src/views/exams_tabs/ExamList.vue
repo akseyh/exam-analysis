@@ -1,5 +1,5 @@
 <template>
-   <vs-table :data="users" id="exams-table">
+   <vs-table :data="exams" id="exams-table">
       <template slot="header">
          <h3>
             Sınavlar
@@ -10,9 +10,6 @@
             Sınav Adı
          </vs-th>
          <vs-th>
-            Tarih
-         </vs-th>
-         <vs-th>
             İşlemler
          </vs-th>
       </template>
@@ -20,10 +17,9 @@
       <template slot-scope="{data}">
          <vs-tr :key="indextr" v-for="(tr, indextr) in data" :style="indextr %  2 === 0 ? 'background: #CFD4D4' : 'background: #BEC2C2'">
             <vs-td>{{tr.name || 'Bilgi Yok'}}</vs-td>
-            <vs-td>{{tr.date || 'Bilgi Yok'}}</vs-td>
             <vs-td>
                <a href="#">
-                  <star class="icon" />
+                  
                </a>
             </vs-td>
          </vs-tr>
@@ -32,13 +28,9 @@
 </template>
 
 <script>
-import star from '../../assets/icons/star.svg'
 export default {
-   components: {
-      star
-   },
    props: {
-      users: {
+      exams: {
          type: Array,
          default: () => [],
       }

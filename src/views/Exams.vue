@@ -1,10 +1,10 @@
 <template>
-   <vs-tabs id="tabs" alignment="fixed" color="olive">
-      <vs-tab label="Sınavlar">
-         <exam-list :users="users"></exam-list>
+   <vs-tabs id="tabs" alignment="fixed" color="olive" :value="indexTabs">
+      <vs-tab label="Sınavlar" @click="indexTabs = 0">
+         <exam-list :exams="exams"></exam-list>
       </vs-tab>
-      <vs-tab label="Sınav Ekle">
-         <exam-create></exam-create>
+      <vs-tab label="Sınav Ekle" @click="indexTabs = 1">
+         <exam-create @examSaved="examSaved"></exam-create>
       </vs-tab>
    </vs-tabs>
 </template>
@@ -17,25 +17,37 @@ export default {
       ExamList,
       ExamCreate
    },
-   data:()=>({
-      users:[
-         {
-         "id": 1,
-         "name": "Muafiyet - 2020",
-         "date": "02.05.2020"
-         },
-         {
-         "id": 2,
-         "name": "Uzaktan Eğitim Sınavı - 2020",
-         "date": "12.05.2020"
-         },
-         {
-         "id": 3,
-         "name": "Uzaktan Eğitim Sınavı - 2021",
-         "date": "12.05.2021"
-         }
-      ]
-   })
+   data() {
+      return {
+         exams:[],
+         indexTabs: 0
+      }
+   },
+   methods: {
+      getData() {
+         this.exams = [
+            {
+            "id": 1,
+            "name": "Muafiyet - 2020",
+            },
+            {
+            "id": 2,
+            "name": "Uzaktan Eğitim Sınavı - 2020",
+            },
+            {
+            "id": 3,
+            "name": "Uzaktan Eğitim Sınavı - 2021"
+            }
+         ]
+      },
+      examSaved(exam) {
+         this.exams.push(exam)
+         this.indexTabs = 0
+      }
+   },
+   created() {
+      this.getData()
+   }
 }
 </script>
 
@@ -45,8 +57,5 @@ export default {
 }
 #exams-table .vs-table--header {
    margin-bottom: 15px;
-}
-#tabs {
-   
 }
 </style>

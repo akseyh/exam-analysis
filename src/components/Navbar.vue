@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vs-navbar v-model="activeItem" class="nabarx">
+    <vs-navbar class="nabarx">
       <div slot="title">
         <vs-navbar-title>
           <router-link to="/">Exam Analysis</router-link>
