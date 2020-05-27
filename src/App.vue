@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="width: 50%; margin-left: 25%">
-    <navbar></navbar>
+    <navbar id="navbar"></navbar>
     <router-view/>
   </div>
 </template>
@@ -20,5 +20,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding-top: 10px;
+}
+#navbar {
+  margin-bottom: 35px;
+  background: olive;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+}
+#navbar a {
+  color: white;
 }
 </style>
