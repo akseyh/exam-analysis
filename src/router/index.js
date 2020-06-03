@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ImportResult from '../views/ImportResult.vue'
 import Exams from '../views/Exams.vue'
+import ExamDetail from '../views/ExamDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ Vue.use(VueRouter)
     path: '/exams',
     name: 'Exams',
     component: Exams
+  },
+  {
+    path: '/exam-detail/:examID',
+    name: 'ExamDetail',
+    component: ExamDetail
   },
   {
     path: '/import-result',

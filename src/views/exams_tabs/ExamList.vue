@@ -19,7 +19,7 @@
             <vs-td>{{tr.name || 'Bilgi Yok'}}</vs-td>
             <vs-td>
                <a href="#">
-                  
+                  <vs-button @click="getDetail(tr)"></vs-button>
                </a>
             </vs-td>
          </vs-tr>
@@ -35,14 +35,15 @@ export default {
          default: () => [],
       }
    },
+   data() {
+      return {
+         selectedExam: []
+      }
+   },
+   methods: {
+      getDetail(el) {
+         this.$emit('clickedExam', el)
+      }
+   }
 }
 </script>
-
-<style>
-#exams-table .vs-table--tbody-table tr {
-   text-align: left;  
-}
-#exams-table .vs-table--header {
-   margin-bottom: 20px;
-}
-</style>
