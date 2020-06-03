@@ -18,9 +18,8 @@
          <vs-tr :key="indextr" v-for="(tr, indextr) in data" :style="indextr %  2 === 0 ? 'background: #CFD4D4' : 'background: #BEC2C2'">
             <vs-td>{{tr.name || 'Bilgi Yok'}}</vs-td>
             <vs-td>
-               <a href="#">
-                  <vs-button @click="getDetail(tr)"></vs-button>
-               </a>
+               <vs-button @click="getDetail(tr)" radius color="primary" type="border" icon="library_books"></vs-button>
+               <vs-button @click="deleteExam(tr)" radius color="danger" type="gradient" icon="delete_outline" style="margin-left: 10px;"></vs-button>
             </vs-td>
          </vs-tr>
       </template>
@@ -43,6 +42,9 @@ export default {
    methods: {
       getDetail(el) {
          this.$emit('clickedExam', el)
+      },
+      deleteExam(el) {
+         this.$emit('deleteExam', el)
       }
    }
 }

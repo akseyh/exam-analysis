@@ -1,7 +1,7 @@
 <template>
    <vs-tabs id="tabs" alignment="fixed" color="olive" :value="indexTabs">
       <vs-tab label="Sınavlar" @click="indexTabs = 0">
-         <exam-list :exams="exams" @clickedExam="getDetail"></exam-list>
+         <exam-list :exams="exams" @clickedExam="getDetail" @deleteExam="deleteExam"></exam-list>
       </vs-tab>
       <vs-tab label="Sınav Ekle" @click="indexTabs = 1">
          <exam-create @examSaved="examSaved"></exam-create>
@@ -27,9 +27,7 @@ export default {
    methods: {
       getData() {
          axios.get('http://localhost:5000/api/exams')
-            .then(res => {
-               this.exams = res.data
-            })
+            .then(res => { this.exams = res.data })
       },
       examSaved() {
          this.indexTabs = 0
@@ -37,6 +35,10 @@ export default {
       },
       getDetail(exam) {
          this.$router.push({name: 'ExamDetail', params: {examID: exam._id}})
+      },
+      deleteExam(exam) {
+         axios.delete(`http://localhost:5000/api/exams/${exam._id}`)
+            .then(() => this.getData())
       }
    },
    created() {
