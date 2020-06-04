@@ -1,5 +1,5 @@
 <template>
-   <vs-table :data="exam" id="exams-table">
+   <vs-table :data="lessons" id="exams-table">
       <template slot="header">
          <h3>
             {{exam.name}}
@@ -15,19 +15,19 @@
       </template>
 
       <template slot-scope="{data}">
-         <vs-tr :key="indextr" v-for="(tr, indextr) in data[0].lessons.lessonNames" :style="indextr %  2 === 0 ? 'background: #CFD4D4' : 'background: #BEC2C2'">
-            <vs-td>{{tr || 'Bilgi Yok'}}</vs-td>
+         <vs-tr v-for="(lesson, index) in data" :key="lesson.id" :style="index %  2 === 0 ? 'background: #CFD4D4' : 'background: #BEC2C2'">
             <vs-td>
-               <a href="#">
-                  <vs-button @click="getCorrectAnswer(tr)"></vs-button>
-               </a>
+               {{lesson || 'Bilgi Yok'}}
             </vs-td>
-            <template slot="expand">
+            <vs-td>
+               <vs-button @click="getCorrectAnswer()"></vs-button>
+            </vs-td>
+            <!-- <template slot="expand">
                <div style="width: 100%; text-align: left; padding-left: 50px;" v-for="booklet in data[0].lessons" :key="booklet.id">
                   <h3>{{data[indextr].lessons.lessonAnswers.kitapcik}}</h3>
                   <h5>{{data[indextr].lessons.lessonAnswers.kitapcik}}</h5>
                </div>
-            </template>
+            </template> -->
          </vs-tr>
       </template>
    </vs-table>
@@ -38,7 +38,8 @@ import axios from 'axios'
 export default {
    data() {
       return {
-         exam: []
+         exam: {},
+         lessons: []
       }
    },
    methods: {
@@ -46,11 +47,11 @@ export default {
          const me = this
          axios.get(`http://localhost:5000/api/exams/${el}`)
             .then(res => {
-               me.exam.push(res.data)
+               me.exam = res.data
+               me.lessons = res.data.lessonNames
             })
       },
-      getCorrectAnswer(el) {
-         console.log(el.answerKey)
+      getCorrectAnswer() {
       }
    },
    async created() {

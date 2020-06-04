@@ -8,18 +8,17 @@
          <vs-input v-model="lessonNames[2]" placeholder="Üçüncü Ders Adı" style="margin-bottom: 5px; width: 100%"></vs-input>
          <vs-input v-model="lessonNames[3]" placeholder="Dördüncü Ders Adı" style="margin-bottom: 5px; width: 100%"></vs-input>
       </div>
-      
-      <input type="file" ref="resultsInput" class="hidden" accept=".txt" @change="resultsInput" style="text-align: left; margin: 20px 0 20px 0">
 
-      <div v-if="exam.length > 0">
-         <div style="text-align: left; margin-bottom: 20px;" v-for="el in exam" :key="el.id">
-            <h3>Kitapçık Türü: {{el.kitapcik}}</h3>
-            <h3>Sınav Türü: {{el.sinavTuru}}</h3>
-            <h3>Oturum: {{el.oturum}}</h3>
-            <h4>{{(lessonNames[0] || 'İlk Ders') + ':' + el.firstLesson}}</h4>
-            <h4>{{(lessonNames[1] || 'İkinci Ders') + ':' + el.secondLesson}}</h4>
-            <h4>{{(lessonNames[2] || 'Üçüncü Ders') + ':' + el.thirdLesson}}</h4>
-            <h4>{{(lessonNames[3] || 'Dördüncü Ders') + ':' + el.fourthLesson}}</h4>
+      <input type="file" ref="resultsInput" class="hidden" accept=".txt" @change="resultsInput" style="text-align: left; margin: 20px 0 20px 0">
+      <div v-if="JSON.stringify(exam) !== '{}'">
+         <div style="text-align: left; margin-bottom: 20px;" v-for="(booklet, index) in exam.booklets" :key="booklet.id">
+            <h3>Kitapçık Türü: {{booklet}}</h3>
+            <h3>Sınav Türü: {{exam.sinavTuru}}</h3>
+            <h3>Oturum: {{exam.oturum}}</h3>
+            <h4>{{(exam.lessonNames[0] || 'İlk Ders') + ':' + exam.answerKeys[index][0]}}</h4>
+            <h4>{{(exam.lessonNames[1] || 'İkinci Ders') + ':' + exam.answerKeys[index][1]}}</h4>
+            <h4>{{(exam.lessonNames[2] || 'Üçüncü Ders') + ':' + exam.answerKeys[index][2]}}</h4>
+            <h4>{{(exam.lessonNames[3] || 'Dördüncü Ders') + ':' + exam.answerKeys[index][3]}}</h4>
          </div>
       </div>
       <vs-button @click="saveExam" :disabled="!isCorrect">Kaydet</vs-button>
